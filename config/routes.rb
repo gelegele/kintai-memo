@@ -1,10 +1,8 @@
 KintaiMemo::Application.routes.draw do
-  get "sessions/create"
 
-  get "sessions/new"
-
-  resources :users
-
+  get "log_in" => "sessions#new", :as => "log_in"
+  resources :users 
+  resources :sessions, :only => [:create]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -55,7 +53,8 @@ KintaiMemo::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-
+  root :to => "sessions#new"
+ 
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

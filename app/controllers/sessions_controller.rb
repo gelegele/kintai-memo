@@ -1,7 +1,13 @@
 class SessionsController < ApplicationController
-  def create
+  def new
   end
 
-  def new
+  def create
+    user = User.find_by_email(params[:email])
+    if user && user.authenticate(params[:password])
+      render text:'Logged in.'
+    else
+      render "new"
+    end
   end
 end
