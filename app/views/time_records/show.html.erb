@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @time_record.user %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @time_record.date %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @time_record.type %>
+</p>
+
+<p>
+  <b>In:</b>
+  <%= @time_record.in %>
+</p>
+
+<p>
+  <b>Out:</b>
+  <%= @time_record.out %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @time_record.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_time_record_path(@time_record) %> |
+<%= link_to 'Back', time_records_path %>

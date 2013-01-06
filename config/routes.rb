@@ -1,5 +1,7 @@
 KintaiMemo::Application.routes.draw do
 
+  resources :time_records
+
   get "log_in" => "sessions#new", :as => "log_in"
   resources :users 
   resources :sessions, :only => [:create, :destroy]

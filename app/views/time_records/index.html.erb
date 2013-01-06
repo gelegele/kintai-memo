@@ -1,0 +1,33 @@
+<h1>Listing time_records</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Date</th>
+    <th>Type</th>
+    <th>In</th>
+    <th>Out</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @time_records.each do |time_record| %>
+  <tr>
+    <td><%= time_record.user %></td>
+    <td><%= time_record.date %></td>
+    <td><%= time_record.type %></td>
+    <td><%= time_record.in %></td>
+    <td><%= time_record.out %></td>
+    <td><%= time_record.note %></td>
+    <td><%= link_to 'Show', time_record %></td>
+    <td><%= link_to 'Edit', edit_time_record_path(time_record) %></td>
+    <td><%= link_to 'Destroy', time_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Time record', new_time_record_path %>
