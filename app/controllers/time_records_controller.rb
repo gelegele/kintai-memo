@@ -2,7 +2,12 @@ class TimeRecordsController < ApplicationController
   # GET /time_records
   # GET /time_records.json
   def index
-    @time_records = TimeRecord.all
+    if session[:user_id]
+      @time_records = User.find(session[:user_id]).time_records
+    else
+      # TODO list for Admin
+      @time_records = TimeRecord.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +30,11 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new.json
   def new
     @time_record = TimeRecord.new
+    @time_record.user_id = session[:user_id] if session[:user_id]
+    now = Time.now
+    @time_record.date = now
+    @time_record.in = Time.local(now.year, now.month, now.day, 9)
+    @time_record.out = Time.local(now.year, now.month, now.day, 17, 30)
 
     respond_to do |format|
       format.html # new.html.erb

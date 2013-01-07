@@ -15,7 +15,7 @@
 
 <% @time_records.each do |time_record| %>
   <tr>
-    <td><%= time_record.user %></td>
+    <td><%= time_record.user.email %></td>
     <td><%= time_record.date %></td>
     <td><%= time_record.type %></td>
     <td><%= time_record.in %></td>
