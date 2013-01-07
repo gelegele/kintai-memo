@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     current_user = User.find(session[:user_id]) if session[:user_id]
     unless current_user
       reset_session
+      flash[:referer] = request.fullpath
       redirect_to login_url, :notice => "Not authnticated"
     end
   end

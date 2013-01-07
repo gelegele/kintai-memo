@@ -8,9 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to time_records_url
+      redirect_to params[:referer]
     else
-      redirect_to login_url, :notice => "Incorrect"
+      flash[:error] = "Incorrect"
+      redirect_to login_url
     end
   end
 

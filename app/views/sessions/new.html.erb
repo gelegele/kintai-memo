@@ -1,5 +1,10 @@
 <h1>Log In</h1>
 <%= form_tag sessions_path do %>
+  <% if flash[:error] %>
+  <div id="error_explanation">
+    <%= flash[:error] %>
+  </div>
+  <% end %>
   <div>
     <%= notice %>
   </div>
@@ -11,5 +16,6 @@
     <%= label_tag :password %><br />
     <%= password_field_tag :password %>
   </p>
+  <%= hidden_field_tag :referer, flash[:referer] %>
   <p class="button"><%= submit_tag 'Log in' %></p>
 <% end %>
