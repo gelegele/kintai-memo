@@ -16,10 +16,10 @@
 <% @time_records.each do |time_record| %>
   <tr>
     <td><%= time_record.user.email %></td>
-    <td><%= time_record.date %></td>
+    <td><%= strf_day(time_record.date) %></td>
     <td><%= time_record.type %></td>
-    <td><%= time_record.in %></td>
-    <td><%= time_record.out %></td>
+    <td><%= strf_time(time_record.in) %></td>
+    <td><%= strf_time(time_record.out) %></td>
     <td><%= time_record.note %></td>
     <td><%= link_to 'Show', time_record %></td>
     <td><%= link_to 'Edit', edit_time_record_path(time_record) %></td>

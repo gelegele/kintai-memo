@@ -7,7 +7,7 @@
 
 <p>
   <b>Date:</b>
-  <%= @time_record.date %>
+  <%= strf_day(@time_record.date) %>
 </p>
 
 <p>
@@ -17,12 +17,12 @@
 
 <p>
   <b>In:</b>
-  <%= @time_record.in %>
+  <%= strf_time(@time_record.in) %>
 </p>
 
 <p>
   <b>Out:</b>
-  <%= @time_record.out %>
+  <%= strf_time(@time_record.out) %>
 </p>
 
 <p>
