@@ -54,7 +54,7 @@ class TimeRecordsController < ApplicationController
 
     respond_to do |format|
       if @time_record.save
-        format.html { redirect_to @time_record, notice: 'Time record was successfully created.' }
+        format.html { redirect_to action: 'index' }
         format.json { render json: @time_record, status: :created, location: @time_record }
       else
         format.html { render action: "new" }
@@ -70,7 +70,7 @@ class TimeRecordsController < ApplicationController
 
     respond_to do |format|
       if @time_record.update_attributes(params[:time_record])
-        format.html { redirect_to @time_record, notice: 'Time record was successfully updated.' }
+        format.html { redirect_to action:'index' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

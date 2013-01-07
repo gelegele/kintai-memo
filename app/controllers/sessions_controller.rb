@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_filter :authenticate
+
   def new
   end
 
@@ -8,12 +10,12 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to time_records_url
     else
-      render "new"
+      redirect_to login_url, :notice => "Incorrect"
     end
   end
 
   def destroy
     reset_session
-    redirect_to root_url
+    redirect_to login_url, :notice => "Logged out"
   end
 end
