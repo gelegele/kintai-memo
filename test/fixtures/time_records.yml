@@ -3,7 +3,6 @@
 one:
   user: 
   date: 2013-01-07
-  type: 1
   in: 2013-01-07 08:10:24
   out: 2013-01-07 08:10:24
   note: MyString
@@ -11,7 +10,6 @@ one:
 two:
   user: 
   date: 2013-01-07
-  type: 1
   in: 2013-01-07 08:10:24
   out: 2013-01-07 08:10:24
   note: MyString

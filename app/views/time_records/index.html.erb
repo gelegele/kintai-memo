@@ -4,7 +4,6 @@
   <tr>
     <th>User</th>
     <th>Date</th>
-    <th>Type</th>
     <th>In</th>
     <th>Out</th>
     <th>Note</th>
@@ -17,7 +16,6 @@
   <tr>
     <td><%= time_record.user.email %></td>
     <td><%= strf_day(time_record.date) %></td>
-    <td><%= time_record.type %></td>
     <td><%= strf_time(time_record.in) %></td>
     <td><%= strf_time(time_record.out) %></td>
     <td><%= time_record.note %></td>

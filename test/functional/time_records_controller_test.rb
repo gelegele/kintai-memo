@@ -18,7 +18,7 @@ class TimeRecordsControllerTest < ActionController::TestCase
 
   test "should create time_record" do
     assert_difference('TimeRecord.count') do
-      post :create, time_record: { date: @time_record.date, in: @time_record.in, note: @time_record.note, out: @time_record.out, type: @time_record.type }
+      post :create, time_record: { date: @time_record.date, in: @time_record.in, note: @time_record.note, out: @time_record.out }
     end
 
     assert_redirected_to time_record_path(assigns(:time_record))
@@ -35,7 +35,7 @@ class TimeRecordsControllerTest < ActionController::TestCase
   end
 
   test "should update time_record" do
-    put :update, id: @time_record, time_record: { date: @time_record.date, in: @time_record.in, note: @time_record.note, out: @time_record.out, type: @time_record.type }
+    put :update, id: @time_record, time_record: { date: @time_record.date, in: @time_record.in, note: @time_record.note, out: @time_record.out }
     assert_redirected_to time_record_path(assigns(:time_record))
   end
 

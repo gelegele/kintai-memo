@@ -11,12 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106231024) do
+ActiveRecord::Schema.define(:version => 20130108101726) do
 
   create_table "time_records", :force => true do |t|
     t.integer  "user_id"
     t.date     "date"
-    t.integer  "type"
     t.datetime "in"
     t.datetime "out"
     t.string   "note"
