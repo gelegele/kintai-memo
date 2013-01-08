@@ -6,7 +6,8 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "should post create" do
-    post :create, {email:'taro@h.com', password:'taro', password_confirmation:'taro'}
+
+    post :create, {email:'taro@h.com', password:'taro', password_confirmation:'taro', referer:time_records_url}
     assert_redirected_to time_records_url
   end
 
