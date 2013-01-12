@@ -1,21 +1,20 @@
-<h1>Log In</h1>
-<%= form_tag sessions_path do %>
+<%= form_tag sessions_path, :class => "span3" do %>
+  <h2>Log in</h2>
   <% if flash[:error] %>
-  <div id="error_explanation">
+  <div class="alert alert-error">
+    <!-- TODO:Dismiss auto -->
     <%= flash[:error] %>
   </div>
   <% end %>
-  <div>
+  <% if notice %>
+  <div class="alert">
+    <!-- TODO:Dismiss auto -->
     <%= notice %>
   </div>
-  <p>
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-  </p>
-  <p>
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </p>
+  <% end %>
+  <%= text_field_tag :email, params[:email], :class => "input-block-level", :placeholder => "Email address"%>
+  <%= password_field_tag :password, nil, :class => "input-block-level", :placeholder => "Password" %>
   <%= hidden_field_tag :referer, flash[:referer] %>
-  <p class="button"><%= submit_tag 'Log in' %></p>
+  <!-- TODO:Remember me -->
+  <%= submit_tag 'Log in', :class => "btn btn-primary pull-right" %>
 <% end %>
