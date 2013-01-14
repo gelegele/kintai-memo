@@ -18,8 +18,13 @@
     <td><%= strf_time(time_record.out) %></td>
     <td><%= time_record.note %></td>
     <td>
-      <%= link_to 'Edit', edit_time_record_path(time_record), :class => "btn" %>
-      <%= link_to 'Destroy', time_record, method: :delete, :class => "btn", data: { confirm: 'Are you sure?' } %>
+      <%= link_to edit_time_record_path(time_record) do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+      &nbsp;
+      <%= link_to time_record, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="icon-remove"></i>
+      <% end %>
     </td>
   </tr>
 <% end %>
