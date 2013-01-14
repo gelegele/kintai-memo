@@ -1,0 +1,10 @@
+// show modal
+$("#mainContainer").append("<%= escape_javascript(render :partial => 'modal') %>");
+$("#modalForm").modal("show");
+
+// modal title from action name
+var action_name = "<%= controller.action_name.capitalize; %>";
+$("#modalHeaderLabel").html(action_name + " time record");
+
+// add click event handler to ok button on modal.
+$("#modalFormSubmit").live("click", function () {$("form:first").submit();});

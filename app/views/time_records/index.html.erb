@@ -18,7 +18,7 @@
     <td><%= strf_time(time_record.out) %></td>
     <td><%= time_record.note %></td>
     <td>
-      <%= link_to edit_time_record_path(time_record) do %>
+      <%= link_to edit_time_record_path(time_record), remote: true do %>
         <i class="icon-pencil"></i>
       <% end %>
       &nbsp;
@@ -31,5 +31,5 @@
 </table>
 
 <div>
-  <%= link_to 'New', new_time_record_path, :class => "btn" %>
+  <%= link_to 'New', new_time_record_path, class: "btn", remote: true %>
 </div>

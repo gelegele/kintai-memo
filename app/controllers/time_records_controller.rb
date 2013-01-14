@@ -39,12 +39,19 @@ class TimeRecordsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @time_record }
+      format.js { render 'modal_form' }
     end
   end
 
   # GET /time_records/1/edit
   def edit
     @time_record = TimeRecord.find(params[:id])
+
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.json { render json: @time_record }
+      format.js { render 'modal_form' }
+    end
   end
 
   # POST /time_records
