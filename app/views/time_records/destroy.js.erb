@@ -1,0 +1,3 @@
+var tr = $("<%= escape_javascript('#tr-' + @time_record.id.to_s) %>");
+tr.hide('slow', function(){tr.remove()});
+
