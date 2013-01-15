@@ -20,19 +20,19 @@
       <%= f.hidden_field :user_id %>
 
       <div class="field">
-        <%= f.label :date %><br />
-        <%= f.date_select :date %>
+        <%= f.label :date %>
+        <%= f.date_select :date, :use_month_numbers => true %>
       </div>
       <div class="field">
-        <%= f.label :in %><br />
-        <%= f.time_select :in %>
+        <%= f.label :in %>
+        <%= f.time_select :in, :minute_step => 10 %>
       </div>
       <div class="field">
-        <%= f.label :out %><br />
-        <%= f.time_select :out %>
+        <%= f.label :out %>
+        <%= f.time_select :out, :minute_step => 10 %>
       </div>
       <div class="field">
-        <%= f.label :note %><br />
+        <%= f.label :note %>
         <%= f.text_field :note %>
       </div>
     <% end %>
