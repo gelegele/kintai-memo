@@ -33,3 +33,20 @@
 <div>
   <%= link_to 'New', new_time_record_path, class: "btn", remote: true %>
 </div>
+
+
+<!-- Modal Dialog -->
+<div id="modalForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+    <h3 id="modalHeaderLabel"></h3>
+  </div>
+  <div id="modalBody" class="modal-body"/>
+    <!-- _modal_form is rendered here-->
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button id="modalFormSubmit" class="btn btn-primary">Save</button>
+    <!-- TODO prevent double click -->
+  </div>
+</div>
