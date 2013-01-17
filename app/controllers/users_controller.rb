@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authorize
+
   # GET /users
   # GET /users.json
   def index
@@ -79,6 +81,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  # filter
+  private
+  def authorize
+   unless current_user.admin
+      redirect_to root_url
     end
   end
 end
