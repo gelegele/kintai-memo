@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      session[:remember_me] = params[:remember_me]
+      update_session_expire
       redirect_to params[:referer]
     else
       flash[:error] = "Incorrect"
