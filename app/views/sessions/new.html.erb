@@ -12,11 +12,11 @@
     <%= notice %>
   </div>
   <% end %>
-  <%= text_field_tag :email, params[:email], :class => "input-block-level", :placeholder => "Email address", :autofocus => true %>
-  <%= password_field_tag :password, nil, :class => "input-block-level", :placeholder => "Password" %>
-  <%= hidden_field_tag :referer, flash[:referer] %>
+  <%= text_field_tag :email, flash[:email], :class => "input-block-level", :placeholder => "Email address", :autofocus => true %>
+  <%= password_field_tag :password, flash[:password], :class => "input-block-level", :placeholder => "Password" %>
   <label for="remember_me" class="checkbox">
-    <%= check_box_tag :remember_me, true %>Remember me
+    <%= check_box_tag :remember_me, true, flash[:remember_me] %>Remember me
   </label>
+  <%= hidden_field_tag :referer, flash[:referer] %>
   <%= submit_tag 'Log in', :class => "btn btn-primary pull-right" %>
 <% end %>

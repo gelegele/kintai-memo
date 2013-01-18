@@ -13,6 +13,9 @@ class SessionsController < ApplicationController
       redirect_to params[:referer]
     else
       flash[:error] = "Incorrect"
+      flash[:email] = params[:email]
+      flash[:password] = params[:password]
+      flash[:remember_me] = params[:remember_me]
       redirect_to login_url
     end
   end
