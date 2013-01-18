@@ -15,15 +15,15 @@
 
 <div class="field">
   <%= f.label :date %>
-  <%= f.date_select :date, :use_month_numbers => true %>
+  <%= f.date_select :date, {:use_month_numbers => true}, {:class => 'input-small'} %>
 </div>
 <div class="field">
   <%= f.label :in %>
-  <%= f.time_select :in, :minute_step => 10 %>
+  <%= f.time_select :in, {:minute_step => 10}, {:class => 'input-small'} %>
 </div>
 <div class="field">
   <%= f.label :out %>
-  <%= f.time_select :out, :minute_step => 10 %>
+  <%= f.time_select :out, {:minute_step => 10}, {:class => 'input-small'} %>
 </div>
 <div class="field">
   <%= f.label :note %>
