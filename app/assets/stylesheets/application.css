@@ -13,8 +13,3 @@
  *= require bootstrap-responsive
  *= require_tree .
  */
-
-.modal-small {
-  width: 280px;
-  margin-left: -140px;
-}
