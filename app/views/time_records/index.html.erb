@@ -1,37 +1,38 @@
-<div class="page-header">
-  <h1><%= current_user.email %>'s time records</h1>
-</div>
-
-<table class="table table-striped">
-  <tr>
-    <th>Date</th>
-    <th>In</th>
-    <th>Out</th>
-    <th>Note</th>
-    <th></th>
-  </tr>
-
-<% @time_records.each do |time_record| %>
-  <tr id="tr-<%= time_record.id%>">
-    <td><%= strf_day(time_record.date) %></td>
-    <td><%= strf_time(time_record.in) %></td>
-    <td><%= strf_time(time_record.out) %></td>
-    <td><%= time_record.note %></td>
-    <td>
-      <%= link_to edit_time_record_path(time_record), remote: true do %>
-        <i class="icon-pencil"></i>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="page-header">
+      <h1><%= current_user.email %>'s time records</h1>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th>Date</th>
+        <th>In</th>
+        <th>Out</th>
+        <th>Note</th>
+        <th></th>
+      </tr>
+      <% @time_records.each do |time_record| %>
+        <tr id="tr-<%= time_record.id%>">
+          <td><%= strf_day(time_record.date) %></td>
+          <td><%= strf_time(time_record.in) %></td>
+          <td><%= strf_time(time_record.out) %></td>
+          <td><%= time_record.note %></td>
+          <td>
+            <%= link_to edit_time_record_path(time_record), remote: true do %>
+              <i class="icon-pencil"></i>
+            <% end %>
+            &nbsp;
+            <%= link_to time_record, method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
+              <i class="icon-remove"></i>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-      &nbsp;
-      <%= link_to time_record, method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
-        <i class="icon-remove"></i>
-      <% end %>
-    </td>
-  </tr>
-<% end %>
-</table>
-
-<div>
-  <%= link_to 'New', new_time_record_path, class: "btn", remote: true %>
+    </table>
+    <div>
+      <%= link_to 'New', new_time_record_path, class: "btn", remote: true %>
+    </div>
+  </div>
 </div>
 
 

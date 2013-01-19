@@ -1,22 +1,26 @@
-<%= form_tag sessions_path, :class => "span3" do %>
-  <h2>Log in</h2>
-  <% if flash[:error] %>
-  <div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <%= flash[:error] %>
+<div class="row-fluid">
+  <div class="span4 offset4">
+    <%= form_tag sessions_path, :class => "form-signin" do %>
+      <h2 class="form-signin-heading">Log in</h2>
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+      <% if notice %>
+        <div class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= notice %>
+        </div>
+      <% end %>
+      <%= text_field_tag :email, flash[:email], :class => "input-block-level", :placeholder => "Email address", :autofocus => true %>
+      <%= password_field_tag :password, flash[:password], :class => "input-block-level", :placeholder => "Password" %>
+      <label for="remember_me" class="checkbox">
+        <%= check_box_tag :remember_me, true, flash[:remember_me] %>Remember me
+      </label>
+      <%= hidden_field_tag :referer, flash[:referer] %>
+      <%= submit_tag 'Log in', :class => "btn btn-primary" %>
+    <% end %>
   </div>
-  <% end %>
-  <% if notice %>
-  <div class="alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <%= notice %>
-  </div>
-  <% end %>
-  <%= text_field_tag :email, flash[:email], :class => "input-block-level", :placeholder => "Email address", :autofocus => true %>
-  <%= password_field_tag :password, flash[:password], :class => "input-block-level", :placeholder => "Password" %>
-  <label for="remember_me" class="checkbox">
-    <%= check_box_tag :remember_me, true, flash[:remember_me] %>Remember me
-  </label>
-  <%= hidden_field_tag :referer, flash[:referer] %>
-  <%= submit_tag 'Log in', :class => "btn btn-primary pull-right" %>
-<% end %>
+</div>
