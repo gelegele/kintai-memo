@@ -1,9 +1,10 @@
-<tr id="tr-<%= time_record.id %>">
+<tr id="tr-<%= time_record.date.day.to_s %>">
   <td><%= strf_day(time_record.date) %></td>
   <td><%= strf_time(time_record.in) %></td>
   <td><%= strf_time(time_record.out) %></td>
   <td><%= time_record.note %></td>
   <td>
+  <% if time_record.id %>
     <%= link_to edit_time_record_path(time_record), remote: true do %>
       <i class="icon-pencil"></i>
     <% end %>
@@ -11,5 +12,10 @@
     <%= link_to time_record, method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
       <i class="icon-remove"></i>
     <% end %>
+  <% else %>
+    <%= link_to new_time_record_path + "?date=" + time_record.date.to_s , remote: true do %>
+      <i class="icon-pencil"></i>
+    <% end %>
+  <% end %>
   </td>
 </tr>

@@ -2,11 +2,27 @@ class TimeRecordsController < ApplicationController
   # GET /time_records
   # GET /time_records.json
   def index
-    if session[:user_id]
-      @time_records = User.find(session[:user_id]).time_records
-    else
-      # TODO list for Admin
-      @time_records = TimeRecord.all
+    existing_time_records = User.find(session[:user_id]).time_records
+ 
+    today = Date.today
+    year = today.year
+    month = today.month
+    days_of_month = Date.new(year, month, -1).day
+    @time_records = Array.new
+    for day in 1..days_of_month do
+      existing_time_record = nil
+      date = Date.new(year, month, day)
+      for item in existing_time_records do
+        if date == item.date
+          existing_time_record = item
+          break
+        end
+      end
+      if existing_time_record
+        @time_records << existing_time_record
+      else
+        @time_records << TimeRecord.new(date: date)
+      end
     end
 
     respond_to do |format|
@@ -32,7 +48,11 @@ class TimeRecordsController < ApplicationController
     @time_record = TimeRecord.new
     @time_record.user_id = session[:user_id] if session[:user_id]
     now = Time.now
-    @time_record.date = now
+    if params[:date] 
+      @time_record.date = Date.parse(params[:date])
+    else
+      @time_record.date = now 
+    end
     @time_record.in = Time.local(now.year, now.month, now.day, 9)
     @time_record.out = Time.local(now.year, now.month, now.day, 17, 30)
 
