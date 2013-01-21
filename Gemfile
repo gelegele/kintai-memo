@@ -9,6 +9,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'pry-rails'
   gem 'pry-debugger'
+  gem 'minitest'  # to enable rails console on cygwin
 end
 group :production do
   gem 'pg'
