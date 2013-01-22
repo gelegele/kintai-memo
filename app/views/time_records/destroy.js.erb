@@ -1,3 +1,5 @@
-var tr = $("<%= escape_javascript('#tr-' + @time_record.id.to_s) %>");
-tr.hide('slow', function(){tr.remove()});
-
+var tr = $("<%= escape_javascript('#tr-' + @time_record.date.day.to_s) %>");
+<% time_record = TimeRecord.new(date: @time_record.date) %>
+// Why does tr.html make new tr in old tr?
+tr.after("<%= escape_javascript(render 'index_row', :time_record => time_record) %>");
+tr.remove();

@@ -13,7 +13,7 @@
       <i class="icon-remove"></i>
     <% end %>
   <% else %>
-    <%= link_to new_time_record_path + "?date=" + time_record.date.to_s , remote: true do %>
+    <%= link_to new_time_record_path + "?monthly_id=" + time_record.monthly_id.to_s + "&day=" + time_record.date.day.to_s , remote: true do %>
       <i class="icon-pencil"></i>
     <% end %>
   <% end %>

@@ -2,26 +2,42 @@ class TimeRecordsController < ApplicationController
   # GET /time_records
   # GET /time_records.json
   def index
-    existing_time_records = User.find(session[:user_id]).time_records
- 
+
     today = Date.today
-    year = today.year
-    month = today.month
-    days_of_month = Date.new(year, month, -1).day
+ 
+    if params[:monthly_id]
+      session[:monthly] = current_user.monthlies.find(params[:monthly_id])
+    elsif session[:monthly]
+      session[:monthly] = current_user.monthlies.find(session[:monthly].id)
+    else
+      if current_user.monthlies.empty?
+        current_user.monthlies.create(year:today.year, month:today.month)
+      end
+      session[:monthly] = current_user.monthlies[0]
+    end
+    existing_time_records = session[:monthly].time_records
+
+    @monthliesHash = Hash.new
+    current_user.monthlies.each do |monthly|
+      @monthliesHash[monthly.year] = Array.new unless @monthliesHash[monthly.year]
+      @monthliesHash[monthly.year] << monthly
+    end
+
+    days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
     @time_records = Array.new
     for day in 1..days_of_month do
-      existing_time_record = nil
-      date = Date.new(year, month, day)
+      existing = nil
+      date = Date.new(session[:monthly].year, session[:monthly].month, day)
       for item in existing_time_records do
         if date == item.date
-          existing_time_record = item
+          existing = item
           break
         end
       end
-      if existing_time_record
-        @time_records << existing_time_record
+      if existing
+        @time_records << existing
       else
-        @time_records << TimeRecord.new(date: date)
+        @time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
       end
     end
 
@@ -46,15 +62,10 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new.json
   def new
     @time_record = TimeRecord.new
-    @time_record.user_id = session[:user_id] if session[:user_id]
-    now = Time.now
-    if params[:date] 
-      @time_record.date = Date.parse(params[:date])
-    else
-      @time_record.date = now 
-    end
-    @time_record.in = Time.local(now.year, now.month, now.day, 9)
-    @time_record.out = Time.local(now.year, now.month, now.day, 17, 30)
+    @time_record.monthly_id = session[:monthly].id
+    @time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
+    @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
+    @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
 
     respond_to do |format|
       format.html # new.html.erb
