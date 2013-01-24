@@ -1,0 +1,2 @@
+module MonthliesHelper
+end

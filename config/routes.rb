@@ -3,6 +3,7 @@ KintaiMemo::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   resources :users 
   resources :sessions, :only => [:create, :destroy]
+  resources :monthlies, :except => [:edit, :update]
   resources :time_records
   # The priority is based upon order of creation:
   # first created -> highest priority.
