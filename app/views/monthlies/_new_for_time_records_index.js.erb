@@ -3,6 +3,6 @@ $("#modalHeaderLabel").html("New Monthly");
 // ajax form
 $("#modalBody").html("<%= escape_javascript(render :partial => 'form', :locals => {:modal => true}) %>");
 // add click event handler to save button on modal.
-$("#modalFormSubmit").live("click", function () {$("form:first").submit();});
+$("#modalFormSubmit").on("click", function () {$("form:first").submit();});
 // show modal
 $("#modalForm").modal("show");
