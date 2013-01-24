@@ -29,6 +29,8 @@ class MonthliesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @monthly }
+      # show modal form in time_records index
+      format.js { render :partial => 'new_for_time_records_index'}
     end
   end
 
@@ -39,6 +41,7 @@ class MonthliesController < ApplicationController
 
     respond_to do |format|
       if @monthly.save
+        session[:monthly] = @monthly
         format.html { redirect_to @monthly, notice: 'Monthly was successfully created.' }
         format.json { render json: @monthly, status: :created, location: @monthly }
       else
@@ -53,6 +56,7 @@ class MonthliesController < ApplicationController
   def destroy
     @monthly = current_user.monthlies.find(params[:id])
     @monthly.destroy
+    session[:monthly] = nil if session[:monthly] == @monthly
 
     respond_to do |format|
       format.html { redirect_to monthlies_url }

@@ -7,15 +7,13 @@ class TimeRecordsController < ApplicationController
  
     if params[:monthly_id]
       session[:monthly] = current_user.monthlies.find(params[:monthly_id])
-    elsif session[:monthly]
-      session[:monthly] = current_user.monthlies.find(session[:monthly].id)
-    else
+    end
+    if !session[:monthly]
       if current_user.monthlies.empty?
         current_user.monthlies.create(year:today.year, month:today.month)
       end
       session[:monthly] = current_user.monthlies[0]
     end
-    existing_time_records = session[:monthly].time_records
 
     @monthliesHash = Hash.new
     current_user.monthlies.each do |monthly|
@@ -28,7 +26,7 @@ class TimeRecordsController < ApplicationController
     for day in 1..days_of_month do
       existing = nil
       date = Date.new(session[:monthly].year, session[:monthly].month, day)
-      for item in existing_time_records do
+      for item in session[:monthly].time_records do
         if date == item.date
           existing = item
           break
@@ -62,10 +60,10 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new.json
   def new
     @time_record = TimeRecord.new
-    @time_record.monthly_id = session[:monthly].id
     @time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
     @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
     @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
+    session[:monthly].time_records << @time_record
 
     respond_to do |format|
       format.html # new.html.erb
@@ -104,11 +102,16 @@ class TimeRecordsController < ApplicationController
   # PUT /time_records/1
   # PUT /time_records/1.json
   def update
-    @time_record = TimeRecord.find(params[:id])
+    #TODO 
+    if session[:monthly].time_records.exists?(params[:id])
+      @time_record = session[:monthly].time_records.find(params[:id])
+    else
+      @time_record = TimeRecord.find(params[:id])
+    end
 
     respond_to do |format|
       if @time_record.update_attributes(params[:time_record])
-        format.html { redirect_to action:'index' }
+        format.html { redirect_to action: 'index' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -121,7 +124,11 @@ class TimeRecordsController < ApplicationController
   # DELETE /time_records/1.json
   def destroy
     @time_record = TimeRecord.find(params[:id])
-    @time_record.destroy
+    if session[:monthly].time_records.exists?(@time_record.id)
+      session[:monthly].time_records.delete(@time_record)
+    else
+      @time_record.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to time_records_url }

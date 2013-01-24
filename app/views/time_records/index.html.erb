@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Time Records</h1>
+  <h1>Time Records <%= session[:monthly].year.to_s + '-' + session[:monthly].month.to_s %></h1>
 </div>
 <div class="row-fluid">
   <div class="span9">
@@ -15,9 +15,6 @@
         <%= render 'index_row', :time_record => time_record %>
       <% end %>
     </table>
-    <div>
-      <%= link_to 'New', new_time_record_path, class: "btn", remote: true %>
-    </div>
   </div>
   <div class="span3">
     <div class="sidebar-nav">
@@ -25,6 +22,7 @@
         <% @monthliesHash.each do |year, monthlies| %>
           <%= render 'monthlies_accordion', :year => year, :monthlies => monthlies %>
         <% end %>
+        <%= link_to 'New Monthly', new_monthly_path, class: "btn", remote: true %>
       </div>
     </div>
   </div>
@@ -43,6 +41,6 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
     <button id="modalFormSubmit" class="btn btn-primary">Save</button>
-    <!-- TODO prevent double click -->
+    <!-- TODO ajax and prevent double click -->
   </div>
 </div>

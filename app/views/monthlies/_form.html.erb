@@ -1,3 +1,4 @@
+<% modal = false if modal.nil? %>
 <%= form_for(@monthly) do |f| %>
   <% if @monthly.errors.any? %>
     <div id="error_explanation">
@@ -20,7 +21,9 @@
     <%= f.label :month %><br />
     <%= f.number_field :month %>
   </div>
+  <% unless modal %>
   <div class="actions">
     <%= f.submit %>
   </div>
+  <% end %>
 <% end %>
