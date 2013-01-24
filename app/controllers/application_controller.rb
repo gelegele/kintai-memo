@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
   helper_method :current_user, :update_session_expire
 
+  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, :with => :render_404
+
   private
   def authenticate
     current_user = User.find(session[:user_id]) if session[:user_id]
@@ -24,5 +26,10 @@ class ApplicationController < ActionController::Base
   private
   def update_session_expire
     request.session_options[:expire_after] = session[:remember_me] ? 10.days : nil
+  end
+
+  private
+  def render_404(e)
+    render :file=>"#{Rails.root}/public/404.html", :status=>404
   end
 end
