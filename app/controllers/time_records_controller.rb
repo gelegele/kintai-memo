@@ -60,9 +60,11 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new.json
   def new
     @time_record = TimeRecord.new
-    @time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
-    @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
-    @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
+    if params[:day]
+      @time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
+      @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
+      @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
+    end
     session[:monthly].time_records << @time_record
 
     respond_to do |format|
@@ -92,6 +94,7 @@ class TimeRecordsController < ApplicationController
       if @time_record.save
         format.html { redirect_to action: 'index' }
         format.json { render json: @time_record, status: :created, location: @time_record }
+        format.js { render action: 'update' }
       else
         format.html { render action: "new" }
         format.json { render json: @time_record.errors, status: :unprocessable_entity }
@@ -113,6 +116,7 @@ class TimeRecordsController < ApplicationController
       if @time_record.update_attributes(params[:time_record])
         format.html { redirect_to action: 'index' }
         format.json { head :no_content }
+        format.js # update.js.erb
       else
         format.html { render action: "edit" }
         format.json { render json: @time_record.errors, status: :unprocessable_entity }

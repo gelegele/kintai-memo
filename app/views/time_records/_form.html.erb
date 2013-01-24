@@ -1,4 +1,5 @@
-<%= form_for(@time_record) do |f| %>
+<% modal = false if modal.nil? %>
+<%= form_for(@time_record, :html => {:remote => modal}) do |f| %>
   <% if @time_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@time_record.errors.count, "error") %> prohibited this time_record from being saved:</h2>
@@ -13,23 +14,30 @@
 
   <%= f.hidden_field :monthly_id %>
 
+  <% unless modal %>
   <div class="field">
     <%= f.label :date %>
     <%= f.date_select :date, :use_month_numbers => true %>
   </div>
+  <% else %>
+  <%= f.hidden_field :date %>
+  <% end %>
+
   <div class="field">
     <%= f.label :in %>
-    <%= f.time_select :in, :minute_step => 10 %>
+    <%= f.time_select :in, {:minute_step => 10}, {:class => 'input-small'} %>
   </div>
   <div class="field">
     <%= f.label :out %>
-    <%= f.time_select :out, :minute_step => 10 %>
+    <%= f.time_select :out, {:minute_step => 10}, {:class => 'input-small'} %>
   </div>
   <div class="field">
     <%= f.label :note %>
     <%= f.text_field :note %>
   </div>
+  <% unless modal %>
   <div class="actions">
     <%= f.submit %>
   </div>
+  <% end%>
 <% end %>

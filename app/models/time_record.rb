@@ -6,4 +6,5 @@ class TimeRecord < ActiveRecord::Base
     :presence => 'true'
   validates :date,
     :presence => 'true'
+  #TODO in < out
 end
