@@ -42,7 +42,8 @@ class MonthliesController < ApplicationController
     respond_to do |format|
       if @monthly.save
         session[:monthly] = @monthly
-        format.html { redirect_to @monthly, notice: 'Monthly was successfully created.' }
+        #format.html { redirect_to @monthly, notice: 'Monthly was successfully created.' }
+        format.html { redirect_to time_records_url }
         format.json { render json: @monthly, status: :created, location: @monthly }
       else
         format.html { render action: "new" }
@@ -59,7 +60,8 @@ class MonthliesController < ApplicationController
     session[:monthly] = nil if session[:monthly] == @monthly
 
     respond_to do |format|
-      format.html { redirect_to monthlies_url }
+      #format.html { redirect_to monthlies_url }
+      format.html { redirect_to time_records_url }
       format.json { head :no_content }
     end
   end

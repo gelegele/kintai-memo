@@ -15,6 +15,9 @@
         <%= render 'index_row', :time_record => time_record %>
       <% end %>
     </table>
+    <% if session[:monthly] %>
+    <%= link_to 'Delete this monthly', session[:monthly], :method => :delete, :data => { confirm: 'Are you sure?'}, class: "btn btn-danger"%>
+    <% end %>
   </div>
   <div class="span3">
     <div class="sidebar-nav">

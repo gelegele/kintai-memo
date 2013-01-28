@@ -6,7 +6,11 @@ class TimeRecordsController < ApplicationController
     if params[:monthly_id]
       session[:monthly] = current_user.monthlies.find(params[:monthly_id])
     else
-      session[:monthly].reload if session[:monthly]
+      if session[:monthly]
+        session[:monthly].reload 
+      else
+        session[:monthly] = current_user.monthlies[0]
+      end
     end
 
     @time_records = Array.new
