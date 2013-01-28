@@ -8,5 +8,5 @@ class Monthly < ActiveRecord::Base
   validates :month,
     :presence => true,
     :inclusion => 1..12,
-    :uniqueness => {:scope => :year}
+    :uniqueness => {:scope => [:user_id, :year]}
 end
