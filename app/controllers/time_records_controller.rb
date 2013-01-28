@@ -3,40 +3,36 @@ class TimeRecordsController < ApplicationController
   # GET /time_records.json
   def index
 
-    today = Date.today
- 
     if params[:monthly_id]
       session[:monthly] = current_user.monthlies.find(params[:monthly_id])
+    else
+      session[:monthly].reload if session[:monthly]
     end
-    if !session[:monthly]
-      if current_user.monthlies.empty?
-        current_user.monthlies.create(year:today.year, month:today.month)
+
+    @time_records = Array.new
+    if session[:monthly]
+      days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
+      for day in 1..days_of_month do
+        existing = nil
+        date = Date.new(session[:monthly].year, session[:monthly].month, day)
+        for item in session[:monthly].time_records do
+          if date == item.date
+            existing = item
+            break
+          end
+        end
+        if existing
+          @time_records << existing
+        else
+          @time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
+        end
       end
-      session[:monthly] = current_user.monthlies[0]
     end
 
     @monthliesHash = Hash.new
     current_user.monthlies.each do |monthly|
       @monthliesHash[monthly.year] = Array.new unless @monthliesHash[monthly.year]
       @monthliesHash[monthly.year] << monthly
-    end
-
-    days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
-    @time_records = Array.new
-    for day in 1..days_of_month do
-      existing = nil
-      date = Date.new(session[:monthly].year, session[:monthly].month, day)
-      for item in session[:monthly].time_records do
-        if date == item.date
-          existing = item
-          break
-        end
-      end
-      if existing
-        @time_records << existing
-      else
-        @time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
-      end
     end
 
     respond_to do |format|
