@@ -6,5 +6,6 @@ class TimeRecord < ActiveRecord::Base
     :presence => 'true'
   validates :date,
     :presence => 'true'
-  #TODO in < out
+  validates :in,
+    :time => {:less_than => 'out'}
 end
