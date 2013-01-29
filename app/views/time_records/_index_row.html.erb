@@ -1,4 +1,4 @@
-<tr id="tr-<%= time_record.date.day.to_s %>">
+<tr id="tr-<%= time_record.date.day.to_s %>" class="<%= wday_class(time_record.date) %>">
   <td><%= strf_day(time_record.date) %></td>
   <td><%= strf_time(time_record.in) %></td>
   <td><%= strf_time(time_record.out) %></td>
