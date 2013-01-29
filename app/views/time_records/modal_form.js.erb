@@ -1,6 +1,6 @@
 // action name in header
 var action_name = "<%= controller.action_name.capitalize; %>";
-$("#modalHeaderLabel").html(action_name + " time record");
+$("#modalHeaderLabel").html(action_name + " <%= strf_day(@time_record.date) %>");
 // ajax form
 $("#modalBody").html("<%= escape_javascript(render :partial => 'form', :locals => {:modal => true}) %>");
 // add click event handler to save button on modal.

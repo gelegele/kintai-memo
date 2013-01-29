@@ -25,12 +25,26 @@ class MonthliesController < ApplicationController
   # GET /monthlies/new.json
   def new
     @monthly = current_user.monthlies.new
+    if current_user.monthlies.empty?
+      today = Date.today
+      @monthly.year = today.year
+      @monthly.month = today.month
+    else
+      latest = current_user.monthlies[0]
+      if 12 == latest.month
+        @monthly.year = latest.year + 1
+        @monthly.month = 1
+      else
+        @monthly.year = latest.year
+        @monthly.month = latest.month + 1
+      end
+    end
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @monthly }
       # show modal form in time_records index
-      format.js { render :partial => 'new_for_time_records_index'}
+      format.js { render :partial => 'new_modal'}
     end
   end
 

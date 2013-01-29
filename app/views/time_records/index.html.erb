@@ -1,6 +1,6 @@
-<div class="page-header">
-  <h1>Time Records <%= session[:monthly].year.to_s + '-' + session[:monthly].month.to_s if session[:monthly] %></h1>
-</div>
+<h2>
+  <small>Time Records</small> <%= session[:monthly].year.to_s + '-' + session[:monthly].month.to_s if session[:monthly] %>
+</h2>
 <div class="row-fluid">
   <div class="span9">
     <table class="table">

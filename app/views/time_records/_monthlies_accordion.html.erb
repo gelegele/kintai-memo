@@ -2,11 +2,11 @@
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#c-<%= year %>"><%= year %></a>
   </div>
-  <div class="accordion-body collapse <% if session[:monthly].year == year %> in <% end %>" id="c-<%= year %>">
+  <div class="accordion-body collapse <% if current_year?(year) %> in <% end %>" id="c-<%= year %>">
     <div class="accordion-inner">
       <ul class="nav nav-pills nav-stacked">
         <% monthlies.each do |monthly| %>
-          <li <% if session[:monthly].month == monthly.month && session[:monthly].year == year %>class="active"<% end %>>
+          <li <% if current_month?(year, monthly.month) %>class="active"<% end %>>
           <%= link_to monthly.month, time_records_path + "?monthly_id=" + monthly.id.to_s %>
           </li>
         <% end %>

@@ -8,4 +8,12 @@ module TimeRecordsHelper
       "tr-weekday"
     end
   end
+
+  def current_year?(year)
+    session[:monthly].year == year
+  end
+
+  def current_month?(year, month)
+    session[:monthly].month == month && session[:monthly].year == year
+  end
 end
