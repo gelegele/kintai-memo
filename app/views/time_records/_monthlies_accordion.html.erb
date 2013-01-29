@@ -3,10 +3,14 @@
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#c-<%= year %>"><%= year %></a>
   </div>
   <div class="accordion-body collapse <% if session[:monthly].year == year %> in <% end %>" id="c-<%= year %>">
-    <% monthlies.each do |monthly| %>
     <div class="accordion-inner">
-      <%= link_to monthly.month, time_records_path + "?monthly_id=" + monthly.id.to_s %>
+      <ul class="nav nav-pills nav-stacked">
+        <% monthlies.each do |monthly| %>
+          <li <% if session[:monthly].month == monthly.month && session[:monthly].year == year %>class="active"<% end %>>
+          <%= link_to monthly.month, time_records_path + "?monthly_id=" + monthly.id.to_s %>
+          </li>
+        <% end %>
+      </ul>
     </div>
-    <% end %>
   </div>
 </div>
