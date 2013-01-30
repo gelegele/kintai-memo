@@ -65,7 +65,7 @@ class TimeRecordsController < ApplicationController
       @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
       @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
     end
-    session[:monthly].time_records << @time_record
+    @time_record.monthly_id = session[:monthly].id
 
     respond_to do |format|
       format.html # new.html.erb
