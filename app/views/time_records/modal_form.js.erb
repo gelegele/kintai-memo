@@ -5,5 +5,13 @@ $("#modalHeaderLabel").html(action_name + " <%= strf_day(@time_record.date) %>")
 $("#modalBody").html("<%= escape_javascript(render :partial => 'form', :locals => {:modal => true}) %>");
 // add click event handler to save button on modal.
 $("#modalFormSubmit").on("click", function () {$("form:first").submit();});
+// enable delete btn when editing
+<% if @time_record.new_record? %>
+  $("#modalDelete").addClass("hidden");
+  $("#modalDelete").attr("href", "#");
+<% else %>
+  $("#modalDelete").removeClass("hidden");
+  $("#modalDelete").attr("href", "<%= time_record_path(@time_record) %>");
+<% end %>
 // show modal
 $("#modalForm").modal("show");

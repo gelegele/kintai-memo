@@ -1,3 +1,8 @@
+<%
+if @time_record.destroyed?
+  @time_record = TimeRecord.new(monthly_id: @time_record.monthly_id, date: @time_record.date)
+end
+%>
 var tr = $("<%= escape_javascript('#tr-' + @time_record.date.day.to_s) %>");
 // Why does tr.html make new tr in old tr?
 tr.after("<%= escape_javascript(render 'index_row', :time_record => @time_record) %>");

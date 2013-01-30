@@ -137,7 +137,7 @@ class TimeRecordsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to time_records_url }
       format.json { head :no_content }
-      format.js # destroy.js.erb
+      format.js { render action: 'update' }
     end
   end
 end

@@ -4,5 +4,7 @@ $("#modalHeaderLabel").html("New Monthly");
 $("#modalBody").html("<%= escape_javascript(render :partial => 'form', :locals => {:modal => true}) %>");
 // add click event handler to save button on modal.
 $("#modalFormSubmit").on("click", function () {$("form:first").submit();});
+// hide delete button
+$("#modalDelete").addClass("hidden");
 // show modal
 $("#modalForm").modal("show");
