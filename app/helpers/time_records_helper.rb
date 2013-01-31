@@ -1,4 +1,12 @@
 module TimeRecordsHelper
+  def current_year?(year)
+    session[:monthly].year == year
+  end
+
+  def current_month?(year, month)
+    session[:monthly].month == month && session[:monthly].year == year
+  end
+
   def wday_class(date)
     if date.wday == 0
       'tr-holiday'
@@ -9,11 +17,7 @@ module TimeRecordsHelper
     end
   end
 
-  def current_year?(year)
-    session[:monthly].year == year
-  end
-
-  def current_month?(year, month)
-    session[:monthly].month == month && session[:monthly].year == year
+  def time_records_path_with_monthly(monthly)
+    time_records_path + "?monthly_id=" + monthly.id.to_s
   end
 end

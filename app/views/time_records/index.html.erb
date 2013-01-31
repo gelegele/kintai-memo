@@ -1,5 +1,5 @@
 <h2>
-  <small>Time Records</small> <%= session[:monthly].year.to_s + '-' + session[:monthly].month.to_s if session[:monthly] %>
+  <small>Time Records</small> <%= link_to strf_monthly(session[:monthly]), time_records_path_with_monthly(session[:monthly]) %>
 </h2>
 <div class="row-fluid">
   <div class="span9">
@@ -16,7 +16,9 @@
       <% end %>
     </table>
     <% if session[:monthly] %>
-    <%= link_to 'Delete this monthly', session[:monthly], :method => :delete, :data => { confirm: 'Are you sure?'}, class: "btn btn-danger"%>
+      <%= link_to session[:monthly], :method => :delete, :data => { confirm: 'Are you sure?'} do %>
+        <i class="icon-trash"></i> Delete records
+      <% end %>
     <% end %>
   </div>
   <div class="span3">
@@ -25,7 +27,9 @@
         <% @monthliesHash.each do |year, monthlies| %>
           <%= render 'monthlies_accordion', :year => year, :monthlies => monthlies %>
         <% end %>
-        <%= link_to 'New Monthly', new_monthly_path, class: "btn", remote: true %>
+        <%= link_to new_monthly_path, class: "btn btn-small", remote: true do %>
+          <i class="icon-plus-sign"></i> New Monthly
+        <% end %>
       </div>
     </div>
   </div>
@@ -42,9 +46,11 @@
     <!-- _modal_form is rendered here-->
   </div>
   <div class="modal-footer">
+    <a id="modalDelete" href="#" class="pull-left" data-method="delete" rel="nofollow" data-remote="true">
+      <i class="icon-trash"></i>Delete
+    </a>
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
     <button id="modalFormSubmit" class="btn btn-primary">Save</button>
-    <a id="modalDelete" href="#" class="btn btn-danger" data-method="delete" rel="nofollow" data-remote="true">Delete</a>
     <!-- TODO ajax and prevent double click -->
   </div>
 </div>

@@ -7,7 +7,7 @@
       <ul class="nav nav-pills nav-stacked">
         <% monthlies.each do |monthly| %>
           <li <% if current_month?(year, monthly.month) %>class="active"<% end %>>
-          <%= link_to monthly.month, time_records_path + "?monthly_id=" + monthly.id.to_s %>
+          <%= link_to monthly.month, time_records_path_with_monthly(monthly) %>
           </li>
         <% end %>
       </ul>

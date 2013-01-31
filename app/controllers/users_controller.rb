@@ -87,8 +87,8 @@ class UsersController < ApplicationController
   # filter
   private
   def authorize
-   unless current_user.admin
-      redirect_to root_url
+    unless current_user.admin
+      render text: "Forbidden", status: :forbbiden
     end
   end
 end

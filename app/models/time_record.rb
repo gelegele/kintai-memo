@@ -7,5 +7,5 @@ class TimeRecord < ActiveRecord::Base
   validates :date,
     :presence => 'true'
   validates :in,
-    :time => {:less_than => 'out'}
+    :time => {:less_than => 'out', :allow_nil => true}
 end
