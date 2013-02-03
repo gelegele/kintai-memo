@@ -10,4 +10,8 @@ module ApplicationHelper
   def strf_monthly(monthly)
     monthly.year.to_s + "-" + monthly.month.to_s.rjust(2, "0") if monthly
   end
+
+  def strf_double(value)
+    format("%02d", value)
+  end
 end

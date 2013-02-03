@@ -2,7 +2,7 @@ class WorkingTimesController < ApplicationController
   # GET /working_times
   # GET /working_times.json
   def index
-    @working_times = WorkingTime.all
+    @working_times = current_user.working_times
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class WorkingTimesController < ApplicationController
   # GET /working_times/1
   # GET /working_times/1.json
   def show
-    @working_time = WorkingTime.find(params[:id])
+    @working_time = current_user.working_times.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +25,7 @@ class WorkingTimesController < ApplicationController
   # GET /working_times/new.json
   def new
     @working_time = WorkingTime.new
+    @working_time.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,7 +35,7 @@ class WorkingTimesController < ApplicationController
 
   # GET /working_times/1/edit
   def edit
-    @working_time = WorkingTime.find(params[:id])
+    @working_time = current_user.working_times.find(params[:id])
   end
 
   # POST /working_times
@@ -43,8 +44,8 @@ class WorkingTimesController < ApplicationController
     @working_time = WorkingTime.new(params[:working_time])
 
     respond_to do |format|
-      if @working_time.save
-        format.html { redirect_to @working_time, notice: 'Working time was successfully created.' }
+      if current_user.working_times << @working_time
+        format.html { redirect_to working_times_path }
         format.json { render json: @working_time, status: :created, location: @working_time }
       else
         format.html { render action: "new" }
@@ -56,11 +57,11 @@ class WorkingTimesController < ApplicationController
   # PUT /working_times/1
   # PUT /working_times/1.json
   def update
-    @working_time = WorkingTime.find(params[:id])
+    @working_time = current_user.working_times.find(params[:id])
 
     respond_to do |format|
       if @working_time.update_attributes(params[:working_time])
-        format.html { redirect_to @working_time, notice: 'Working time was successfully updated.' }
+        format.html { redirect_to working_times_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -72,7 +73,7 @@ class WorkingTimesController < ApplicationController
   # DELETE /working_times/1
   # DELETE /working_times/1.json
   def destroy
-    @working_time = WorkingTime.find(params[:id])
+    @working_time = current_user.working_times.find(params[:id])
     @working_time.destroy
 
     respond_to do |format|

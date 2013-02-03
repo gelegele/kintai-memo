@@ -1,31 +1,34 @@
-<h1>Listing working_times</h1>
+<h2>Working Times</h2>
 
-<table>
+<table class="table table-striped">
   <tr>
-    <th>User</th>
-    <th>Start hours</th>
-    <th>Start minutes</th>
-    <th>End hours</th>
-    <th>End minutes</th>
-    <th></th>
-    <th></th>
+    <th>Start</th>
+    <th>End</th>
     <th></th>
   </tr>
 
 <% @working_times.each do |working_time| %>
   <tr>
-    <td><%= working_time.user %></td>
-    <td><%= working_time.start_hours %></td>
-    <td><%= working_time.start_minutes %></td>
-    <td><%= working_time.end_hours %></td>
-    <td><%= working_time.end_minutes %></td>
-    <td><%= link_to 'Show', working_time %></td>
-    <td><%= link_to 'Edit', edit_working_time_path(working_time) %></td>
-    <td><%= link_to 'Destroy', working_time, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= strf_double working_time.start_hours %>:
+      <%= strf_double working_time.start_minutes %>
+    </td>
+    <td>
+      <%= strf_double working_time.end_hours %>:
+      <%= strf_double working_time.end_minutes %>
+    </td>
+    <td>
+      <%= link_to edit_working_time_path(working_time) do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+      <%= link_to working_time_path(working_time), method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="icon-remove"></i>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Working time', new_working_time_path %>
+<%= link_to new_working_time_path, class: "btn btn-small" do %>
+  <i class="icon-plus-sign"></i> New
+<% end %>
