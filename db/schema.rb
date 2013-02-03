@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122080459) do
+ActiveRecord::Schema.define(:version => 20130202234143) do
 
   create_table "monthlies", :force => true do |t|
     t.integer  "user_id"
@@ -48,5 +48,17 @@ ActiveRecord::Schema.define(:version => 20130122080459) do
     t.datetime "updated_at",                         :null => false
     t.boolean  "admin",           :default => false, :null => false
   end
+
+  create_table "working_times", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "start_hours"
+    t.integer  "start_minutes"
+    t.integer  "end_hours"
+    t.integer  "end_minutes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "working_times", ["user_id"], :name => "index_working_times_on_user_id"
 
 end
