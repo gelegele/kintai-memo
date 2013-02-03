@@ -13,31 +13,8 @@ class TimeRecordsController < ApplicationController
       end
     end
 
-    @time_records = Array.new
-    if session[:monthly]
-      days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
-      for day in 1..days_of_month do
-        existing = nil
-        date = Date.new(session[:monthly].year, session[:monthly].month, day)
-        for item in session[:monthly].time_records do
-          if date == item.date
-            existing = item
-            break
-          end
-        end
-        if existing
-          @time_records << existing
-        else
-          @time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
-        end
-      end
-    end
-
-    @monthliesHash = Hash.new
-    current_user.monthlies.each do |monthly|
-      @monthliesHash[monthly.year] = Array.new unless @monthliesHash[monthly.year]
-      @monthliesHash[monthly.year] << monthly
-    end
+    @time_records = newTimeRecordArray
+    @monthlyHash = newMonthlyHash
 
     respond_to do |format|
       format.html # index.html.erb
@@ -59,13 +36,7 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new
   # GET /time_records/new.json
   def new
-    @time_record = TimeRecord.new
-    if params[:day]
-      @time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
-      @time_record.in = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 9)
-      @time_record.out = Time.local(session[:monthly].year, session[:monthly].month, @time_record.date.day, 17, 30)
-    end
-    @time_record.monthly_id = session[:monthly].id
+    @time_record = newTimeRecord
 
     respond_to do |format|
       format.html # new.html.erb
@@ -139,5 +110,62 @@ class TimeRecordsController < ApplicationController
       format.json { head :no_content }
       format.js { render action: 'update' }
     end
+  end
+
+  private
+  def newTimeRecordArray
+    time_records = Array.new
+    if session[:monthly]
+      days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
+      for day in 1..days_of_month do
+        existing = nil
+        date = Date.new(session[:monthly].year, session[:monthly].month, day)
+        for item in session[:monthly].time_records do
+          if date == item.date
+            existing = item
+            break
+          end
+        end
+        if existing
+          time_records << existing
+        else
+          time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
+        end
+      end
+    end
+    time_records
+  end
+
+  private
+  def newMonthlyHash
+    monthlyHash = Hash.new
+    current_user.monthlies.each do |monthly|
+      monthlyHash[monthly.year] = Array.new unless monthlyHash[monthly.year]
+      monthlyHash[monthly.year] << monthly
+    end
+    monthlyHash
+  end
+
+  private
+  def newTimeRecord
+    time_record = TimeRecord.new
+    if params[:day]
+      time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
+      in_hour, in_minute = 9, 0
+      out_hour, out_minute = 17, 30
+      if current_user.time_tables.any?
+        time_table = current_user.time_tables[0]
+        in_hour = time_table.fixed_start_hours
+        in_minute = time_table.fixed_start_minutes
+        out_hour = time_table.fixed_end_hours
+        out_minute = time_table.fixed_end_minutes
+      end
+      time_record.in = Time.local(
+        session[:monthly].year, session[:monthly].month, time_record.date.day, in_hour, in_minute)
+      time_record.out = Time.local(
+        session[:monthly].year, session[:monthly].month, time_record.date.day, out_hour, out_minute)
+    end
+    time_record.monthly_id = session[:monthly].id
+    time_record
   end
 end

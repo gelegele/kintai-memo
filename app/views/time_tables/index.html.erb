@@ -29,6 +29,8 @@
 <% end %>
 </table>
 
+<% if @time_tables.empty? %>
 <%= link_to new_time_table_path, class: "btn btn-small" do %>
   <i class="icon-plus-sign"></i> New
+<% end %>
 <% end %>

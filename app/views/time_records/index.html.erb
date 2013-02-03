@@ -24,7 +24,7 @@
   <div class="span3">
     <div class="sidebar-nav">
       <div class="accordion" id="accordion">
-        <% @monthliesHash.each do |year, monthlies| %>
+        <% @monthlyHash.each do |year, monthlies| %>
           <%= render 'monthlies_accordion', :year => year, :monthlies => monthlies %>
         <% end %>
         <%= link_to new_monthly_path, class: "btn btn-small", remote: true do %>
