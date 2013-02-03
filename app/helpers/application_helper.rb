@@ -14,4 +14,12 @@ module ApplicationHelper
   def strf_double(value)
     format("%02d", value)
   end
+
+  def hours_list
+    (0..23).to_a.map{|v|[strf_double(v), v]}
+  end
+
+  def minutes_list
+    [0,10,20,30,40,50].map{|v|[strf_double(v), v]}
+  end
 end
