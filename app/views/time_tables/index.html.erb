@@ -1,31 +1,34 @@
-<h1>Listing time_tables</h1>
+<h2>Time Tables</h2>
 
-<table>
+<table class="table table-striped">
   <tr>
-    <th>User</th>
-    <th>Fixed start hours</th>
-    <th>Fixed start minutes</th>
-    <th>Fixed end hours</th>
-    <th>Fixed end minutes</th>
-    <th></th>
-    <th></th>
+    <th>Fixed start</th>
+    <th>Fixed end</th>
     <th></th>
   </tr>
 
 <% @time_tables.each do |time_table| %>
   <tr>
-    <td><%= time_table.user %></td>
-    <td><%= time_table.fixed_start_hours %></td>
-    <td><%= time_table.fixed_start_minutes %></td>
-    <td><%= time_table.fixed_end_hours %></td>
-    <td><%= time_table.fixed_end_minutes %></td>
-    <td><%= link_to 'Show', time_table %></td>
-    <td><%= link_to 'Edit', edit_time_table_path(time_table) %></td>
-    <td><%= link_to 'Destroy', time_table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= strf_double time_table.fixed_start_hours %> :
+      <%= strf_double time_table.fixed_start_minutes %>
+    </td>
+    <td>
+      <%= strf_double time_table.fixed_end_hours %> :
+      <%= strf_double time_table.fixed_end_minutes %>
+    </td>
+    <td>
+      <%= link_to edit_time_table_path(time_table) do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+      <%= link_to time_table, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="icon-remove"></i>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Time table', new_time_table_path %>
+<%= link_to new_time_table_path, class: "btn btn-small" do %>
+  <i class="icon-plus-sign"></i> New
+<% end %>

@@ -12,24 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.label 'start' %><br />
+    <div>
+      <%= f.select :fixed_start_hours, hours_list, {}, class: 'input-small' %>:
+      <%= f.select :fixed_start_minutes, minutes_list, {}, class: 'input-small' %>
+    </div>
   </div>
   <div class="field">
-    <%= f.label :fixed_start_hours %><br />
-    <%= f.number_field :fixed_start_hours %>
-  </div>
-  <div class="field">
-    <%= f.label :fixed_start_minutes %><br />
-    <%= f.number_field :fixed_start_minutes %>
-  </div>
-  <div class="field">
-    <%= f.label :fixed_end_hours %><br />
-    <%= f.number_field :fixed_end_hours %>
-  </div>
-  <div class="field">
-    <%= f.label :fixed_end_minutes %><br />
-    <%= f.number_field :fixed_end_minutes %>
+    <%= f.label 'end' %><br />
+    <div>
+      <%= f.select :fixed_end_hours, hours_list, {}, class: 'input-small' %>:
+      <%= f.select :fixed_end_minutes, minutes_list, {}, class: 'input-small' %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit %>
