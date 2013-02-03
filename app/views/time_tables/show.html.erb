@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @time_table.user %>
+</p>
+
+<p>
+  <b>Fixed start hours:</b>
+  <%= @time_table.fixed_start_hours %>
+</p>
+
+<p>
+  <b>Fixed start minutes:</b>
+  <%= @time_table.fixed_start_minutes %>
+</p>
+
+<p>
+  <b>Fixed end hours:</b>
+  <%= @time_table.fixed_end_hours %>
+</p>
+
+<p>
+  <b>Fixed end minutes:</b>
+  <%= @time_table.fixed_end_minutes %>
+</p>
+
+
+<%= link_to 'Edit', edit_time_table_path(@time_table) %> |
+<%= link_to 'Back', time_tables_path %>

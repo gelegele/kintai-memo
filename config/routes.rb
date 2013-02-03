@@ -1,5 +1,8 @@
 KintaiMemo::Application.routes.draw do
 
+  resources :time_tables
+
+
   resources :working_times
 
 

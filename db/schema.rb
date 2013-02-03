@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202234143) do
+ActiveRecord::Schema.define(:version => 20130203135813) do
 
   create_table "monthlies", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20130202234143) do
     t.datetime "updated_at", :null => false
     t.integer  "monthly_id"
   end
+
+  create_table "time_tables", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "fixed_start_hours"
+    t.integer  "fixed_start_minutes"
+    t.integer  "fixed_end_hours"
+    t.integer  "fixed_end_minutes"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "time_tables", ["user_id"], :name => "index_time_tables_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
