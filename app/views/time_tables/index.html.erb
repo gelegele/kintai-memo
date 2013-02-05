@@ -34,3 +34,36 @@
   <i class="icon-plus-sign"></i> New
 <% end %>
 <% end %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+  </tr>
+
+<% @working_times.each do |working_time| %>
+  <tr>
+    <td>
+      <%= strf_double working_time.start_hours %>:
+      <%= strf_double working_time.start_minutes %>
+    </td>
+    <td>
+      <%= strf_double working_time.end_hours %>:
+      <%= strf_double working_time.end_minutes %>
+    </td>
+    <td>
+      <%= link_to edit_working_time_path(working_time) do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+      <%= link_to working_time_path(working_time), method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="icon-remove"></i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= link_to new_working_time_path, class: "btn btn-small" do %>
+  <i class="icon-plus-sign"></i> New
+<% end %>
+

@@ -2,7 +2,7 @@
   <small>Time Records</small> <%= link_to strf_monthly(session[:monthly]), time_records_path_with_monthly(session[:monthly]) %>
 </h2>
 <div class="row-fluid">
-  <div class="span9">
+  <div class="span9" style="overflow:hidden">
     <table class="table">
       <tr>
         <th>Date</th>
@@ -16,19 +16,19 @@
       <% end %>
     </table>
     <% if session[:monthly] %>
-      <%= link_to session[:monthly], :method => :delete, :data => { confirm: 'Are you sure?'} do %>
+      <%= link_to session[:monthly], class: 'pull-right', :method => :delete, :data => { confirm: 'Are you sure?'} do %>
         <i class="icon-trash"></i> Delete records
       <% end %>
     <% end %>
   </div>
   <div class="span3">
     <div class="sidebar-nav">
+      <%= link_to new_monthly_path, class: "btn btn-small", remote: true do %>
+        <i class="icon-plus-sign"></i> New Monthly
+      <% end %>
       <div class="accordion" id="accordion">
         <% @monthlyHash.each do |year, monthlies| %>
           <%= render 'monthlies_accordion', :year => year, :monthlies => monthlies %>
-        <% end %>
-        <%= link_to new_monthly_path, class: "btn btn-small", remote: true do %>
-          <i class="icon-plus-sign"></i> New Monthly
         <% end %>
       </div>
     </div>

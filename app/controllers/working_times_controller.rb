@@ -45,7 +45,7 @@ class WorkingTimesController < ApplicationController
 
     respond_to do |format|
       if current_user.working_times << @working_time
-        format.html { redirect_to working_times_path }
+        format.html { redirect_to time_tables_path }
         format.json { render json: @working_time, status: :created, location: @working_time }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class WorkingTimesController < ApplicationController
 
     respond_to do |format|
       if @working_time.update_attributes(params[:working_time])
-        format.html { redirect_to working_times_path }
+        format.html { redirect_to time_tables_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -77,7 +77,7 @@ class WorkingTimesController < ApplicationController
     @working_time.destroy
 
     respond_to do |format|
-      format.html { redirect_to working_times_url }
+      format.html { redirect_to time_tables_url }
       format.json { head :no_content }
     end
   end

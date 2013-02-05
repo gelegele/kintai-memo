@@ -3,6 +3,7 @@ class TimeTablesController < ApplicationController
   # GET /time_tables.json
   def index
     @time_tables = current_user.time_tables
+    @working_times = current_user.working_times
 
     respond_to do |format|
       format.html # index.html.erb
