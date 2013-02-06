@@ -1,5 +1,6 @@
 class TimeTable < ActiveRecord::Base
   belongs_to :user
+  has_many :working_times
   attr_accessible :fixed_end_hours, :fixed_end_minutes, :fixed_start_hours, :fixed_start_minutes
 
   validates :fixed_start_hours,

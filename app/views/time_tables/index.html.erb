@@ -35,14 +35,14 @@
 <% end %>
 <% end %>
 
+<% if @working_times %>
 <table class="table table-striped">
   <tr>
     <th>Start</th>
     <th>End</th>
     <th></th>
   </tr>
-
-<% @working_times.each do |working_time| %>
+  <% @working_times.each do |working_time| %>
   <tr>
     <td>
       <%= strf_double working_time.start_hours %>:
@@ -61,9 +61,10 @@
       <% end %>
     </td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 <%= link_to new_working_time_path, class: "btn btn-small" do %>
   <i class="icon-plus-sign"></i> New
+<% end %>
 <% end %>
 

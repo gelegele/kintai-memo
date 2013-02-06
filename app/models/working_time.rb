@@ -1,11 +1,11 @@
 class WorkingTime < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :time_table
   attr_accessible :end_hours, :end_minutes, :start_hours, :start_minutes
 
   validates :start_hours,
     :presence => true,
     :inclusion => 0..23,
-    :uniqueness => {:scope => [:user_id, :start_minutes]},
+    :uniqueness => {:scope => [:time_table_id, :start_minutes]},
     :numericality => {:less_than_or_equal_to => :end_hours}
   validates :start_minutes,
     :presence => true,
@@ -14,7 +14,7 @@ class WorkingTime < ActiveRecord::Base
   validates :end_hours,
     :presence => true,
     :inclusion => 0..23,
-    :uniqueness => {:scope => [:user_id, :end_minutes]}
+    :uniqueness => {:scope => [:time_table_id, :end_minutes]}
   validates :end_minutes,
     :presence => true,
     :inclusion => 0..59
