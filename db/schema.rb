@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206140005) do
+ActiveRecord::Schema.define(:version => 20130211013530) do
+
+  create_table "holidays", :force => true do |t|
+    t.date     "date"
+    t.string   "summary"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "monthlies", :force => true do |t|
     t.integer  "user_id"
