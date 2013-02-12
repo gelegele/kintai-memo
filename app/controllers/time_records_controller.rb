@@ -13,9 +13,9 @@ class TimeRecordsController < ApplicationController
       end
     end
 
-    @time_records = newTimeRecordArray
+    @time_records = newTimeRecordArray(session[:monthly])
     @monthlyHash = newMonthlyHash
-    @holidays = findHolidays(session[:monthly].year, session[:monthly].month)
+    @holidays = findHolidays(session[:monthly])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,7 +37,7 @@ class TimeRecordsController < ApplicationController
   # GET /time_records/new
   # GET /time_records/new.json
   def new
-    @time_record = newTimeRecord
+    @time_record = newTimeRecord(session[:monthly], params[:day])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -61,6 +61,7 @@ class TimeRecordsController < ApplicationController
   # POST /time_records.json
   def create
     @time_record = TimeRecord.new(params[:time_record])
+    @holidays = findHolidays(session[:monthly])
 
     respond_to do |format|
       if @time_record.save
@@ -83,6 +84,7 @@ class TimeRecordsController < ApplicationController
     else
       @time_record = TimeRecord.find(params[:id])
     end
+    @holidays = findHolidays(session[:monthly])
 
     respond_to do |format|
       if @time_record.update_attributes(params[:time_record])
@@ -105,6 +107,7 @@ class TimeRecordsController < ApplicationController
     else
       @time_record.destroy
     end
+    @holidays = findHolidays(session[:monthly])
 
     respond_to do |format|
       format.html { redirect_to time_records_url }
@@ -113,15 +116,16 @@ class TimeRecordsController < ApplicationController
     end
   end
 
+
   private
-  def newTimeRecordArray
+  def newTimeRecordArray(monthly)
     time_records = Array.new
-    if session[:monthly]
-      days_of_month = Date.new(session[:monthly].year, session[:monthly].month, -1).day
+    if monthly
+      days_of_month = Date.new(monthly.year, monthly.month, -1).day
       for day in 1..days_of_month do
         existing = nil
-        date = Date.new(session[:monthly].year, session[:monthly].month, day)
-        for item in session[:monthly].time_records do
+        date = Date.new(monthly.year, monthly.month, day)
+        for item in monthly.time_records do
           if date == item.date
             existing = item
             break
@@ -130,7 +134,7 @@ class TimeRecordsController < ApplicationController
         if existing
           time_records << existing
         else
-          time_records << TimeRecord.new(monthly_id: session[:monthly].id, date: date)
+          time_records << TimeRecord.new(monthly_id: monthly.id, date: date)
         end
       end
     end
@@ -148,10 +152,23 @@ class TimeRecordsController < ApplicationController
   end
 
   private
-  def newTimeRecord
+  def findHolidays(monthly)
+    holidays = []
+    if monthly
+      firstDay = Date.new(monthly.year, monthly.month, 1)
+      lastDay = Date.new(monthly.year, monthly.month, -1)
+      Holiday.where(date: firstDay..lastDay).each do |h|
+        holidays << h.date
+      end
+    end
+    holidays
+  end
+
+  private
+  def newTimeRecord(monthly, day)
     time_record = TimeRecord.new
-    if params[:day]
-      time_record.date = Date.new(session[:monthly].year, session[:monthly].month, params[:day].to_i)
+    if day
+      time_record.date = Date.new(monthly.year, monthly.month, day.to_i)
       in_hour, in_minute = 9, 0
       out_hour, out_minute = 17, 30
       if current_user.time_tables.any?
@@ -162,21 +179,11 @@ class TimeRecordsController < ApplicationController
         out_minute = time_table.fixed_end_minutes
       end
       time_record.in = Time.local(
-        session[:monthly].year, session[:monthly].month, time_record.date.day, in_hour, in_minute)
+        monthly.year, monthly.month, time_record.date.day, in_hour, in_minute)
       time_record.out = Time.local(
-        session[:monthly].year, session[:monthly].month, time_record.date.day, out_hour, out_minute)
+        monthly.year, monthly.month, time_record.date.day, out_hour, out_minute)
     end
-    time_record.monthly_id = session[:monthly].id
+    time_record.monthly_id = monthly.id
     time_record
-  end
-
-  private
-  def findHolidays(year, month)
-    holidays = []
-    date = Date.new(year, month, 1)
-    Holiday.where(date: date..date.end_of_month).each do |h|
-      holidays << h.date
-    end
-    holidays
   end
 end
