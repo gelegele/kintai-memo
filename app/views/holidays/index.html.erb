@@ -1,0 +1,14 @@
+<h1>Holidays</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>date</th>
+    <th>summary</th>
+  </tr>
+
+<% @holidays.each do |holiday| %>
+  <tr>
+    <td><%= holiday.date %></td>
+    <td><%= holiday.summary %></td>
+  </tr>
+<% end %>

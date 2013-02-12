@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def authorize
+    unless current_user.admin
+      render text: "Forbidden", status: :forbbiden
+    end
+  end
+
+  private
   def current_user
     @current_user = User.find(session[:user_id]) if session[:user_id]
   end

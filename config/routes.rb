@@ -1,16 +1,16 @@
 KintaiMemo::Application.routes.draw do
 
-  resources :time_tables
-
-
-  resources :working_times
-
-
   get "login" => "sessions#new", :as => "login"
-  resources :users 
   resources :sessions, :only => [:create, :destroy]
+  resources :users 
+  resources :time_tables
+  resources :working_times
   resources :monthlies, :except => [:edit, :update]
   resources :time_records
+
+  resources :holidays, :only => [:index]
+  match 'holidays/pull/:year' => 'holidays#pull'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

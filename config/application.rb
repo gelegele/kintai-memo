@@ -62,5 +62,8 @@ module KintaiMemo
 
     # Prevent assets:precompile failures on heroku
     config.assets.initialize_on_precompile = false
+ 
+    # Japanese-holidays service uri
+    config.assets.holidays_uri = 'http://japanese-holidays.herokuapp.com/services/ical/'
   end
 end
