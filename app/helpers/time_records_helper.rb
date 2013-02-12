@@ -8,7 +8,9 @@ module TimeRecordsHelper
   end
 
   def wday_class(date)
-    if date.wday == 0
+    if @holidays.include?(date)
+      'tr-holiday'
+    elsif date.wday == 0
       'tr-holiday'
     elsif date.wday == 6
       "tr-saturday"

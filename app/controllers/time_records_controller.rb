@@ -15,6 +15,7 @@ class TimeRecordsController < ApplicationController
 
     @time_records = newTimeRecordArray
     @monthlyHash = newMonthlyHash
+    @holidays = findHolidays(session[:monthly].year, session[:monthly].month)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -167,5 +168,15 @@ class TimeRecordsController < ApplicationController
     end
     time_record.monthly_id = session[:monthly].id
     time_record
+  end
+
+  private
+  def findHolidays(year, month)
+    holidays = []
+    date = Date.new(year, month, 1)
+    Holiday.where(date: date..date.end_of_month).each do |h|
+      holidays << h.date
+    end
+    holidays
   end
 end
