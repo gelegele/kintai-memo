@@ -7,9 +7,11 @@ KintaiMemo::Application.routes.draw do
   resources :working_times
   resources :monthlies, :except => [:edit, :update]
   resources :time_records
-
-  resources :holidays, :only => [:index]
-  match 'holidays/pull/:year' => 'holidays#pull'
+  resources :holidays, :only => [:index] do
+    collection do
+      put 'pull'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

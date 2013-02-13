@@ -1,5 +1,9 @@
 <h1>Holidays</h1>
 
+<a role="button" href="#modalForm" class="btn pull-right" data-toggle="modal">
+  <i class="icon-refresh"></i> Pull
+</a>
+
 <table class="table table-striped">
   <tr>
     <th>date</th>
@@ -12,3 +16,24 @@
     <td><%= holiday.summary %></td>
   </tr>
 <% end %>
+
+
+<!-- Modal Dialog -->
+<div id="modalForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+    <h3>Update Holidays</h3>
+  </div>
+  <div id="modalBody" class="modal-body"/>
+    <%= form_tag 'holidays/pull', :id => 'form', :method => 'put' do %>
+      <div class="field">
+        <%= label_tag :year %>
+        <%= select_tag 'year', options_for_select(@years, :selected => @years[2]) %>
+      </div>
+    <% end%>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button id="modalFormSubmit" class="btn btn-primary" onclick="$('#form').submit()">Pull</button>
+  </div>
+</div>
