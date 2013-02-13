@@ -5,7 +5,6 @@ class HolidaysController < ApplicationController
   def index
     @holidays = Holiday.find(:all, :order => 'date DESC')
     thisYear = Time.now.year
-    @years = ((thisYear + 2).downto(thisYear - 2)).to_a
 
     respond_to do |format|
       format.html # index.html.erb

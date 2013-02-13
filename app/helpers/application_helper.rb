@@ -15,6 +15,15 @@ module ApplicationHelper
     format("%02d", value)
   end
 
+  def year_list
+    thisYear = Time.now.year
+    ((thisYear + 2).downto(thisYear - 2)).to_a
+  end
+
+  def month_list
+    (1..12).to_a
+  end
+
   def hours_list
     (0..23).to_a.map{|v|[strf_double(v), v]}
   end

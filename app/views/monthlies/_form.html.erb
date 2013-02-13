@@ -14,12 +14,12 @@
 
   <%= f.hidden_field :user_id %>
   <div class="field">
-    <%= f.label :year %><br />
-    <%= f.number_field :year %>
+    <%= f.label :year %>
+    <%= f.select :year, year_list %>
   </div>
   <div class="field">
-    <%= f.label :month %><br />
-    <%= f.number_field :month %>
+    <%= f.label :month %>
+    <%= f.select :month, month_list %>
   </div>
   <% unless modal %>
   <div class="actions">

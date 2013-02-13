@@ -25,10 +25,10 @@
     <h3>Update Holidays</h3>
   </div>
   <div id="modalBody" class="modal-body"/>
-    <%= form_tag 'holidays/pull', :id => 'form', :method => 'put' do %>
+    <%= form_tag pull_holidays_path, :id => 'form', :method => 'put' do %>
       <div class="field">
         <%= label_tag :year %>
-        <%= select_tag 'year', options_for_select(@years, :selected => @years[2]) %>
+        <%= select_tag 'year', options_for_select(year_list, :selected => Time.now.year) %>
       </div>
     <% end%>
   </div>
