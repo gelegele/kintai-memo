@@ -12,6 +12,8 @@ KintaiMemo::Application.routes.draw do
       put 'pull'
     end
   end
+  get 'preference' => 'preference#edit', :as => 'preference'
+  put 'preference' => 'preference#update', :as => 'preference'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
