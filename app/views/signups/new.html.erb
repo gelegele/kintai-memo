@@ -1,0 +1,30 @@
+<div class="row-fluid">
+  <div class="span4 offset4">
+    <%= form_tag signup_path, :class => "form-signin" do %>
+      <h2 class="form-signin-heading">Sign up</h2>
+
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, flash[:email] %>
+      </div>
+      <div class="field">
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
+      </div>
+      <div class="field">
+        <%= label_tag :password_confirmation %>
+        <%= password_field_tag :password_confirmation %>
+      </div>
+      <div class="actions">
+        <%= submit_tag 'sign up', :class => "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

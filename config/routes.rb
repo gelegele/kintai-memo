@@ -1,5 +1,6 @@
 KintaiMemo::Application.routes.draw do
 
+  resource :signup, :only => [:new, :create], :path_names => {:new => ''}
   get "login" => "sessions#new", :as => "login"
   resources :sessions, :only => [:create, :destroy]
   resources :users 

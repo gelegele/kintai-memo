@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     else
       reset_session
       flash[:referer] = request.fullpath
-      redirect_to login_url, :notice => "Not authnticated"
+      redirect_to signup_url
     end
   end
 

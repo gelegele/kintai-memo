@@ -11,16 +11,26 @@
   <div class="navbar navbar-static-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <% if controller_name != 'sessions' %>
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <% end %>
         <a class="brand" href="#">Kintai Memo</a>
-        <% if controller_name != 'sessions' %>
         <div class="nav-collapse collapse">
+          <% if 'signups' == controller_name %>
+          <div class="pull-right">
+            <ul class="nav pull-right">
+              <li id="nav-item-login"><%= link_to "Log in", login_path %></li>
+            </ul>
+          </div>
+          <% elsif 'sessions' == controller_name %>
+          <div class="pull-right">
+            <ul class="nav pull-right">
+              <li id="nav-item-signup"><%= link_to "Sign up", signup_path %></li>
+            </ul>
+          </div>
+          <% else %>
           <ul class="nav">
             <li id="nav-item-time_records"><%= link_to "Time Records", time_records_path %></li>
             <li id="nav-item-time_tables"><%= link_to "Time Tables", time_tables_path %></li>
@@ -51,8 +61,8 @@
               </li>
             </ul>
           </div>
+          <% end %>
         </div>
-        <% end %>
       </div>
     </div>
   </div>
