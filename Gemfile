@@ -6,7 +6,6 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'thin'
   gem 'sqlite3'
   gem 'pry-rails'
   gem 'pry-debugger'
@@ -44,3 +43,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
 # gem 'debugger'
+#
+
+gem 'thin'
+gem 'foreman'
