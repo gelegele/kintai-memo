@@ -171,12 +171,24 @@ class TimeRecordsController < ApplicationController
       time_record.date = Date.new(monthly.year, monthly.month, day.to_i)
       in_hour, in_minute = 9, 0
       out_hour, out_minute = 17, 30
+      # Set Fixed Time
       if current_user.time_tables.any?
         time_table = current_user.time_tables[0]
         in_hour = time_table.fixed_start_hours
         in_minute = time_table.fixed_start_minutes
         out_hour = time_table.fixed_end_hours
         out_minute = time_table.fixed_end_minutes
+      end
+      # Set out time now if today
+      if time_record.date == Date.today
+        out_time = Time.new(
+          time_record.date.year, time_record.date.month, time_record.date.day,
+          out_hour, out_minute) 
+        now = Time.now
+        if out_time <= now
+          out_hour = now.hour
+          out_minute = now.min - now.min%10
+        end
       end
       time_record.in = Time.local(
         monthly.year, monthly.month, time_record.date.day, in_hour, in_minute)
